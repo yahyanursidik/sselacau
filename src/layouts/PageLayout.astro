@@ -1,0 +1,46 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import Mark from '../components/ui/Mark.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  lead?: string;
+  crumbs?: { label: string; href?: string }[];
+}
+
+const { title, description, lead, crumbs } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="page-head section--white">
+    <div class="container">
+      <Breadcrumbs items={crumbs ?? [{ label: title }]} />
+      <Mark />
+      <h1>{title}</h1>
+      {lead && <p class="lead">{lead}</p>}
+    </div>
+  </section>
+  <div class="section">
+    <div class="container">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 2rem clamp(2rem, 5vw, 3.25rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .page-head h1 {
+    font-size: clamp(2rem, 4.2vw, 3.25rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-head .lead {
+    margin: 0;
+  }
+</style>

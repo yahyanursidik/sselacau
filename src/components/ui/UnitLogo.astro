@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import { brandAssets } from '../../config/brand';
+import type { UnitKey } from '../../config/site';
+
+interface Props {
+  unit: UnitKey;
+  /** Tinggi visual dasar dalam px; tiap logo dikoreksi agar bobotnya seimbang. */
+  size?: number;
+  decorative?: boolean;
+  eager?: boolean;
+}
+
+const { unit, size = 110, decorative = false, eager = false } = Astro.props;
+
+// File asli punya rasio dan ruang kosong berbeda (logo Madrasah memiliki margin
+// putih lebar). Koreksi ini hanya mengubah ukuran tampil, bukan file logo.
+const optical: Record<UnitKey, { h: number; maxW: number }> = {
+  tk: { h: 0.95, maxW: 1.6 },
+  kuttab: { h: 1, maxW: 1.1 },
+  madrasah: { h: 1.4, maxW: 1.4 },
+};
+const o = optical[unit];
+const h = Math.round(size * o.h);
+const w = Math.round(size * o.maxW);
+const asset = brandAssets[unit];
+---
+
+<Image
+  src={asset.src}
+  alt={decorative ? '' : asset.alt}
+  width={w}
+  densities={[1, 2]}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : undefined}
+  class="unit-logo"
+  style={`--h:${h}px;--w:${w}px`}
+/>
+
+<style>
+  .unit-logo {
+    height: var(--h);
+    width: auto;
+    max-width: var(--w);
+    object-fit: contain;
+    object-position: left center;
+  }
+</style>

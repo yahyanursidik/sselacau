@@ -1,0 +1,306 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import UnitHero from '../../components/ui/UnitHero.astro';
+import Pending from '../../components/ui/Pending.astro';
+import EnrollmentNote from '../../components/ui/EnrollmentNote.astro';
+import VisionMission from '../../components/ui/VisionMission.astro';
+import ScheduleBox from '../../components/ui/ScheduleBox.astro';
+import { units } from '../../config/site';
+
+// Sumber seluruh isi halaman: "Program Pembelajaran TK Tarbiyah Sunnah" dari pengguna, 30 Oktober 2026.
+const unit = units.tk;
+
+const profile =
+  'TK Tarbiyah Sunnah adalah lembaga pendidikan anak usia dini yang mendampingi anak tumbuh dan belajar dalam suasana yang islami, hangat, menyenangkan, dan sesuai dengan tahap perkembangan anak. Pembelajaran mengutamakan pembiasaan adab, nilai-nilai Islam, kemandirian, serta pengalaman belajar melalui bermain dan kegiatan nyata.';
+
+const groups = [
+  {
+    name: 'TK A',
+    age: '4–5 tahun',
+    text: 'Anak mulai belajar beradaptasi dengan lingkungan sekolah, membangun kemandirian, mengenal adab dan kebiasaan baik, serta belajar melalui berbagai kegiatan bermain dan eksplorasi.',
+  },
+  {
+    name: 'TK B',
+    age: '5–6 tahun',
+    text: 'Anak mengembangkan kemandirian, kemampuan berkomunikasi, sosial-emosional, kreativitas, serta berbagai keterampilan melalui kegiatan bermain, eksplorasi, dan pengalaman nyata sebagai persiapan menuju jenjang pendidikan berikutnya.',
+  },
+];
+
+const visi =
+  'Mewujudkan anak usia dini yang berakhlak mulia, beriman dan beraqidah Ahlus Sunnah wal Jama’ah, serta mandiri, cerdas, kreatif, dan percaya diri.';
+
+const misi = [
+  'Menyelenggarakan pendidikan Islam berdasarkan Al-Qur’an dan Sunnah sesuai dengan perkembangan anak.',
+  'Menyiapkan anak didik dengan aktivitas kecakapan hidup (life skill).',
+  'Menanamkan Aqidah, Akhlak, dan Muamalah sesuai dengan pemahaman Rasulullah shallallahu ‘alaihi wa sallam dan para sahabatnya.',
+];
+
+const areas = [
+  {
+    name: 'Nilai Agama & Budi Pekerti',
+    text: 'Mengenal Allah dan ajaran Islam, pembiasaan doa sehari-hari, Iqro, hafalan surat pendek dan hadits, serta pembiasaan adab dan akhlak dalam kehidupan sehari-hari.',
+  },
+  {
+    name: 'Bahasa & Komunikasi',
+    text: 'Mendengarkan cerita, bercakap-cakap, bercerita, mengenal huruf dan bunyinya, serta menumbuhkan minat anak terhadap buku dan kegiatan keaksaraan.',
+  },
+  {
+    name: 'Berhitung & Eksplorasi',
+    text: 'Mengenal angka, bentuk, ukuran, warna, pola, dan konsep sederhana melalui permainan serta kegiatan mengamati dan mencoba.',
+  },
+  {
+    name: 'Seni & Kreativitas',
+    text: 'Menggambar, mewarnai, membuat karya, serta berbagai kegiatan seni untuk mengembangkan kreativitas dan ekspresi anak.',
+  },
+  {
+    name: 'Sosial-Emosional & Kemandirian',
+    text: 'Belajar berbagi, bekerja sama, mengikuti aturan sederhana, mengenali dan mengungkapkan perasaan, menjaga diri dan lingkungan, serta melakukan kegiatan sehari-hari secara bertahap dan mandiri.',
+  },
+  {
+    name: 'Motorik & Kesehatan',
+    text: 'Berbagai permainan dan aktivitas yang melatih gerak tubuh, keseimbangan, koordinasi, serta keterampilan tangan, disertai pembiasaan hidup bersih dan sehat.',
+  },
+];
+
+const themes = ['Diriku', 'Keluargaku', 'Lingkungan', 'Tanaman', 'Binatang', 'Kebutuhan sehari-hari'];
+const realActivities = ['Fun cooking', 'Market day', 'Outing class', 'Field trip', 'Proyek sederhana'];
+---
+
+<BaseLayout
+  title="TK Tarbiyah Sunnah"
+  description="TK Tarbiyah Sunnah di Selacau, Batujajar: pendidikan anak usia dini untuk usia 4–6 tahun (TK A dan TK B), belajar Senin–Jumat pukul 07.30–10.30."
+>
+  <UnitHero unit={unit} lead={profile}>
+    <Fragment slot="actions">
+      <a class="btn btn--primary" href="#pembelajaran">Program Pembelajaran</a>
+      <a class="btn btn--secondary" href="/pendaftaran/">Informasi Pendaftaran</a>
+      {unit.contactUrl && <a class="btn btn--secondary" href={unit.contactUrl}>Hubungi TK</a>}
+    </Fragment>
+  </UnitHero>
+
+  <section class="section" aria-labelledby="usia-title">
+    <div class="container">
+      <h2 id="usia-title">Kelompok usia dan waktu belajar</h2>
+      <p class="lead">TK Tarbiyah Sunnah menerima anak dalam dua kelompok usia.</p>
+
+      <div class="groups">
+        {
+          groups.map((g) => (
+            <section class="group" aria-labelledby={`grup-${g.name.replace(' ', '-')}`}>
+              <h3 id={`grup-${g.name.replace(' ', '-')}`}>
+                {g.name}
+                <span class="age">Usia {g.age}</span>
+              </h3>
+              <p>{g.text}</p>
+            </section>
+          ))
+        }
+        <div class="schedule-slot">
+          <ScheduleBox days="Senin–Jumat" hours="07.30–10.30" />
+        </div>
+      </div>
+
+      <p class="muted note">
+        Kegiatan pembelajaran pada setiap kelompok disesuaikan dengan usia, tahap perkembangan, dan kebutuhan anak.
+      </p>
+    </div>
+  </section>
+
+  <VisionMission vision={visi} mission={misi} />
+
+  <section class="section" id="pembelajaran" aria-labelledby="belajar-title">
+    <div class="container">
+      <h2 id="belajar-title">Program pembelajaran</h2>
+      <p class="lead">
+        Kegiatan pembelajaran di TK Tarbiyah Sunnah dilakukan melalui bermain, bercerita, praktik, eksplorasi, dan
+        pembiasaan yang disesuaikan dengan usia dan tahap perkembangan anak.
+      </p>
+
+      <dl class="areas">
+        {
+          areas.map((a) => (
+            <div>
+              <dt>{a.name}</dt>
+              <dd>{a.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <section class="thematic" aria-labelledby="tematik-title">
+        <div>
+          <h3 id="tematik-title">Kegiatan tematik dan pengalaman nyata</h3>
+          <p>
+            Anak belajar melalui tema yang dekat dengan kehidupannya. Setiap tema dikembangkan melalui kegiatan dan
+            proyek sederhana.
+          </p>
+        </div>
+        <div class="thematic-lists">
+          <div>
+            <h4>Contoh tema</h4>
+            <ul>{themes.map((t) => <li>{t}</li>)}</ul>
+          </div>
+          <div>
+            <h4>Bentuk kegiatan</h4>
+            <ul>{realActivities.map((t) => <li>{t}</li>)}</ul>
+          </div>
+        </div>
+      </section>
+
+      <p class="closing">
+        Pembelajaran dilakukan dengan suasana yang menyenangkan agar anak dapat bermain, bereksplorasi, mencoba, dan
+        belajar sesuai tahap perkembangannya.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="tk-lain">
+    <div class="container prose">
+      <h2 id="tk-lain">Informasi yang sedang dilengkapi</h2>
+      <Pending label="Data TK yang belum tersedia">
+        <ul>
+          <li>Perizinan dan NPSN (bila ada)</li>
+          <li>Fasilitas dan lingkungan belajar</li>
+          <li>Syarat, jadwal dan biaya pendaftaran</li>
+          <li>Kontak resmi TK</li>
+          <li>Foto kegiatan yang sudah berizin</li>
+        </ul>
+      </Pending>
+    </div>
+  </section>
+
+  <EnrollmentNote unit={unit} />
+</BaseLayout>
+
+<style>
+  .groups {
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.8fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: 2.5rem;
+  }
+
+  .group {
+    border-top: 3px solid var(--brand);
+    padding-top: 1.25rem;
+  }
+
+  .group h3 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .age {
+    font-size: 1.0625rem;
+    font-weight: 650;
+    letter-spacing: 0;
+    color: var(--accent-text);
+  }
+
+  .group p {
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .note {
+    margin-top: 2rem;
+    font-size: 0.9375rem;
+  }
+
+  .areas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 clamp(2rem, 5vw, 4rem);
+    margin: 2.75rem 0 0;
+  }
+
+  .areas div {
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .areas dt {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--brand-deep);
+    margin-bottom: 0.4rem;
+  }
+
+  .areas dd {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .thematic {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 1.5rem clamp(2rem, 5vw, 4rem);
+    margin-top: 2rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background: var(--wash);
+    border-radius: 12px;
+  }
+
+  .thematic h3 {
+    font-size: 1.375rem;
+  }
+
+  .thematic p {
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .thematic-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .thematic h4 {
+    font-size: 0.9375rem;
+    color: var(--brand);
+    margin: 0 0 0.5rem;
+  }
+
+  .thematic ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
+  .thematic li + li {
+    margin-top: 0.25rem;
+  }
+
+  .closing {
+    max-width: 40rem;
+    margin: 2.5rem 0 0;
+    font-size: 1.0625rem;
+  }
+
+  @media (max-width: 900px) {
+    .groups {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .schedule-slot {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .groups,
+    .areas,
+    .thematic {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .thematic-lists {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

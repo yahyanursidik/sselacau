@@ -1,0 +1,39 @@
+---
+/**
+ * Penanda konten yang belum terverifikasi (NEEDS_VERIFICATION).
+ * Selama site.prerelease, penanda tampil; jangan terbitkan halaman yang masih memuatnya.
+ */
+interface Props {
+  label?: string;
+}
+
+const { label = 'Menunggu verifikasi' } = Astro.props;
+---
+
+<div class="pending" data-needs-verification>
+  <strong>{label}</strong>
+  <div><slot /></div>
+</div>
+
+<style>
+  .pending {
+    border: 1px dashed #c9b37a;
+    background: #fffaf0;
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.9375rem;
+    color: #4d4120;
+  }
+
+  .pending strong {
+    display: block;
+    font-size: 0.8125rem;
+    color: #7a5b0e;
+    margin-bottom: 0.25rem;
+  }
+
+  .pending :global(p:last-child),
+  .pending :global(ul:last-child) {
+    margin-bottom: 0;
+  }
+</style>

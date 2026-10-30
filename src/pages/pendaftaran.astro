@@ -1,0 +1,82 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import UnitLogo from '../components/ui/UnitLogo.astro';
+import Pending from '../components/ui/Pending.astro';
+import { unitList, enrollmentLabel } from '../config/site';
+---
+
+<PageLayout
+  title="Informasi Pendaftaran"
+  description="Informasi pendaftaran TK, Kuttab dan Madrasah Tarbiyah Sunnah Selacau, Batujajar."
+  lead="Pendaftaran dilakukan langsung melalui masing-masing unit. Halaman ini hanya berisi informasi; website tidak menerima formulir atau data pendaftar."
+>
+  <ul class="enroll-list">
+    {
+      unitList.map((u) => (
+        <li>
+          <div class="logo">
+            <UnitLogo unit={u.key} size={64} decorative />
+          </div>
+          <div class="body">
+            <h2>{u.officialName}</h2>
+            <p class="muted">{u.descriptor}</p>
+            <p>
+              Status: <strong>{enrollmentLabel[u.enrollment]}</strong>
+            </p>
+          </div>
+          <div class="actions">
+            <a class="btn btn--secondary" href={u.url}>
+              Kenali {u.shortName}
+            </a>
+            {u.contactUrl && (
+              <a class="btn btn--primary" href={u.contactUrl}>
+                Hubungi {u.shortName}
+              </a>
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <Pending>
+    Tahun ajaran, jadwal, syarat, biaya dan kontak pendaftaran tiap unit. Biaya dan kuota tidak dicantumkan sebelum
+    dikonfirmasi unit.
+  </Pending>
+</PageLayout>
+
+<style>
+  .enroll-list {
+    list-style: none;
+    margin: 0 0 2rem;
+    padding: 0;
+  }
+
+  .enroll-list li {
+    display: grid;
+    grid-template-columns: 7rem 1fr auto;
+    gap: 1rem 2rem;
+    align-items: center;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .enroll-list li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .body p {
+    margin: 0;
+  }
+
+  @media (max-width: 680px) {
+    .enroll-list li {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

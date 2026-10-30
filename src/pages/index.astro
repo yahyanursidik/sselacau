@@ -1,0 +1,332 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import UnitCard from '../components/ui/UnitCard.astro';
+import Mark from '../components/ui/Mark.astro';
+import NewsList from '../components/ui/NewsList.astro';
+import { site, unitList, enrollmentLabel } from '../config/site';
+
+const news = (await getCollection('news', ({ data }) => data.published))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const values = [
+  { name: 'Al-Qur’an', text: 'Pembelajaran dan kedekatan dengan Al-Qur’an.' },
+  { name: 'Aqidah', text: 'Pondasi keimanan berdasarkan Al-Qur’an dan As-Sunnah.' },
+  { name: 'Adab', text: 'Pembiasaan baik dalam kegiatan sehari-hari.' },
+  { name: 'Ilmu', text: 'Pemahaman dan keterampilan sesuai tahap usia.' },
+  { name: 'Kemandirian', text: 'Tanggung jawab dan keterampilan hidup.' },
+];
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <Mark />
+        <h1>Bertumbuh dalam <span>Al-Qur’an, adab, ilmu,</span> dan kemandirian.</h1>
+        <p class="lead">
+          {site.name} mencakup tiga unit: TK untuk usia dini, Kuttab untuk program setingkat SD, dan Madrasah untuk
+          pembelajaran Al-Qur’an melalui TPQ dan TQA.
+        </p>
+        <div class="actions">
+          <a class="btn btn--primary" href="#unit">Kenali Unit Pendidikan</a>
+          <a class="btn btn--secondary" href="/pendaftaran/">Informasi Pendaftaran</a>
+        </div>
+        <p class="place">{site.region}</p>
+      </div>
+      <figure class="photo-slot" data-needs-verification>
+        <figcaption>
+          Tempat foto utama: lingkungan atau ruang belajar sekolah. Menunggu foto asli yang sudah berizin.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section--white" id="unit" aria-labelledby="unit-title">
+    <div class="container">
+      <div class="heading">
+        <div>
+          <Mark />
+          <h2 id="unit-title">Pilih unit sesuai tahap belajar ananda</h2>
+        </div>
+        <p class="muted">Setiap unit memiliki program, jadwal dan informasi pendaftaran sendiri.</p>
+      </div>
+      <div class="units">
+        {unitList.map((u) => <UnitCard unit={u} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="nilai-title">
+    <div class="container values-wrap">
+      <div>
+        <Mark />
+        <h2 id="nilai-title">Arah pendidikan bersama</h2>
+        <p class="muted">
+          Lima nilai ini menjadi arah pendidikan di ketiga unit. Rincian praktik dan capaian dijelaskan di halaman
+          masing-masing unit, karena tiap jenjang punya kebutuhan yang berbeda.
+        </p>
+      </div>
+      <dl class="values">
+        {
+          values.map((v) => (
+            <div>
+              <dt>{v.name}</dt>
+              <dd>{v.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="hidup-title">
+    <div class="container split">
+      <figure class="photo-slot photo-slot--short" data-needs-verification>
+        <figcaption>Tempat foto aktivitas, halaman atau ruang belajar. Wajah anak hanya ditampilkan dengan izin.</figcaption>
+      </figure>
+      <div>
+        <Mark />
+        <h2 id="hidup-title">Pendidikan hadir dalam keseharian anak.</h2>
+        <p class="muted">
+          Selain daftar pelajaran, orang tua perlu melihat bagaimana lingkungan, guru, rutinitas dan kegiatan mendukung
+          pengalaman belajar anak.
+        </p>
+        <a class="btn btn--secondary" href="/kehidupan-sekolah/">Lihat Kehidupan Sekolah</a>
+      </div>
+    </div>
+  </section>
+
+  {
+    news.length > 0 && (
+      <section class="section" aria-labelledby="berita-title">
+        <div class="container">
+          <div class="heading">
+            <div>
+              <Mark />
+              <h2 id="berita-title">Kegiatan dan kabar sekolah</h2>
+            </div>
+            <a class="tap" href="/berita/">Semua berita</a>
+          </div>
+          <NewsList entries={news} />
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section--white" aria-labelledby="daftar-title">
+    <div class="container">
+      <div class="register">
+        <div>
+          <h2 id="daftar-title">Informasi pendaftaran</h2>
+          <p>Setiap unit membuka pendaftaran dengan jadwal dan syaratnya sendiri.</p>
+        </div>
+        <ul>
+          {
+            unitList.map((u) => (
+              <li>
+                <span>{u.officialName}</span>
+                <span class="status">{enrollmentLabel[u.enrollment]}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a class="btn btn--accent" href="/pendaftaran/">Lihat Informasi Pendaftaran</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 6vw, 4rem);
+    align-items: center;
+  }
+
+  h1 span {
+    color: var(--brand);
+  }
+
+  .hero .actions {
+    margin-top: 2rem;
+  }
+
+  .place {
+    margin-top: 1.75rem;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  .photo-slot {
+    margin: 0;
+    min-height: 420px;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.25rem;
+    background: repeating-linear-gradient(-45deg, #eceee3 0 12px, #e6e9dc 12px 24px);
+    border: 1px dashed #b9c1ad;
+    border-radius: 12px;
+  }
+
+  .photo-slot--short {
+    min-height: 340px;
+  }
+
+  .photo-slot figcaption {
+    background: var(--surface);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: var(--muted);
+    max-width: 22rem;
+  }
+
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem 3rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .heading h2 {
+    margin: 0;
+  }
+
+  .heading p {
+    max-width: 30rem;
+    margin: 0;
+  }
+
+  .units {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .values-wrap {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .values {
+    margin: 0;
+  }
+
+  .values div {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1rem;
+    padding-block: 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .values div:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .values dt {
+    font-weight: 700;
+    color: var(--brand-deep);
+  }
+
+  .values dd {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 6vw, 4.5rem);
+    align-items: center;
+  }
+
+  .register {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 1.5rem 3rem;
+    align-items: center;
+    background: var(--brand-deep);
+    color: #fff;
+    border-radius: 12px;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  .register h2 {
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .register p {
+    color: #dbe6d3;
+    margin: 0;
+  }
+
+  .register ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9375rem;
+  }
+
+  .register li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.5rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.18);
+  }
+
+  .register .status {
+    color: #dbe6d3;
+  }
+
+  /* Kontras fokus di atas hijau tua */
+  .register :focus-visible {
+    outline-color: #fff;
+  }
+
+  @media (max-width: 960px) {
+    .units {
+      grid-template-columns: 1fr;
+    }
+
+    .register {
+      grid-template-columns: 1fr;
+    }
+
+    .register .btn {
+      justify-self: start;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .hero-inner,
+    .split,
+    .values-wrap {
+      grid-template-columns: 1fr;
+    }
+
+    .photo-slot {
+      min-height: 260px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .values div {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+  }
+</style>

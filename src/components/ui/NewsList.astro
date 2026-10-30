@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { units } from '../../config/site';
+
+interface Props {
+  entries: CollectionEntry<'news'>[];
+  /** Ikuti level heading induk: 3 di bawah h2 section, 2 langsung di bawah h1 halaman. */
+  headingLevel?: 2 | 3;
+}
+
+const { entries, headingLevel = 3 } = Astro.props;
+const Heading = headingLevel === 2 ? 'h2' : 'h3';
+const fmt = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+const unitLabel = (u: CollectionEntry<'news'>['data']['unit']) => (u === 'umum' ? 'Umum' : units[u].shortName);
+---
+
+<ul class="news">
+  {
+    entries.map((e) => (
+      <li>
+        <p class="meta">
+          <span>{unitLabel(e.data.unit)}</span> · <time datetime={e.data.date.toISOString()}>{fmt.format(e.data.date)}</time>
+        </p>
+        <Heading class="title">
+          <a href={`/berita/${e.id}/`}>{e.data.title}</a>
+        </Heading>
+        <p class="muted">{e.data.excerpt}</p>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .news {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: 2rem;
+  }
+
+  li {
+    border-top: 2px solid var(--brand);
+    padding-top: 1rem;
+  }
+
+  .meta {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .meta span {
+    font-weight: 650;
+    color: var(--brand-deep);
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .title a {
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .title a:hover {
+    text-decoration: underline;
+  }
+</style>

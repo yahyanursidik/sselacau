@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Mark from '../components/ui/Mark.astro';
+import { unitList } from '../config/site';
+---
+
+<BaseLayout title="Halaman tidak ditemukan">
+  <section class="section">
+    <div class="container prose">
+      <Mark />
+      <h1>Halaman tidak ditemukan</h1>
+      <p class="lead">Alamat yang Anda buka tidak tersedia atau sudah dipindahkan.</p>
+      <ul class="link-list">
+        <li><a href="/">Kembali ke beranda</a></li>
+        {unitList.map((u) => <li><a href={u.url}>{u.officialName}</a></li>)}
+        <li><a href="/kontak/">Kontak sekolah</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

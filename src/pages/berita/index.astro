@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import NewsList from '../../components/ui/NewsList.astro';
+
+const news = (await getCollection('news', ({ data }) => data.published)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<PageLayout
+  title="Berita & Pengumuman"
+  description="Berita dan pengumuman TK, Kuttab dan Madrasah Tarbiyah Sunnah Selacau."
+  lead="Kabar kegiatan dan pengumuman dari ketiga unit."
+>
+  {
+    news.length ? (
+      <NewsList entries={news} headingLevel={2} />
+    ) : (
+      <p class="empty">
+        Belum ada berita atau pengumuman. Kabar kegiatan dari TK, Kuttab dan Madrasah akan dimuat di halaman ini.
+      </p>
+    )
+  }
+</PageLayout>

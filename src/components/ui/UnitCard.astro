@@ -1,0 +1,70 @@
+---
+import UnitLogo from './UnitLogo.astro';
+import type { Unit } from '../../config/site';
+
+interface Props {
+  unit: Unit;
+}
+
+const { unit } = Astro.props;
+---
+
+<article class="unit-card">
+  <div class="logo-stage">
+    <UnitLogo unit={unit.key} size={100} decorative />
+  </div>
+  <h3>{unit.officialName}</h3>
+  <p class="descriptor">{unit.descriptor}</p>
+  <p class="summary">{unit.summary}</p>
+  <a href={unit.url}>Kenali {unit.shortName}<span class="visually-hidden"> Tarbiyah Sunnah</span></a>
+</article>
+
+<style>
+  .unit-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.6rem 1.5rem 1.5rem;
+  }
+
+  .unit-card:has(a:hover) {
+    border-color: #b9c6ae;
+  }
+
+  .logo-stage {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .descriptor {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-text);
+    margin-bottom: 0.75rem;
+  }
+
+  .summary {
+    font-size: 0.9688rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  a {
+    margin-top: auto;
+    font-weight: 650;
+    color: var(--brand-deep);
+  }
+
+  /* Seluruh kartu dapat diklik lewat satu tautan */
+  a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+</style>

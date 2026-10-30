@@ -1,0 +1,47 @@
+---
+import { enrollmentLabel, type Unit } from '../../config/site';
+
+interface Props {
+  unit: Unit;
+}
+
+const { unit } = Astro.props;
+---
+
+<section class="section section--wash" aria-labelledby={`daftar-${unit.key}`}>
+  <div class="container enroll">
+    <div>
+      <h2 id={`daftar-${unit.key}`}>Pendaftaran {unit.officialName}</h2>
+      <p class="muted">
+        Status: <strong>{enrollmentLabel[unit.enrollment]}</strong>. Jadwal, syarat dan biaya diumumkan langsung oleh
+        unit; website ini tidak menerima formulir pendaftaran.
+      </p>
+    </div>
+    <div class="actions">
+      <a class="btn btn--primary" href="/pendaftaran/">Informasi Pendaftaran</a>
+      {unit.contactUrl ? <a class="btn btn--secondary" href={unit.contactUrl}>Hubungi {unit.shortName}</a> : null}
+    </div>
+  </div>
+</section>
+
+<style>
+  .enroll {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem 3rem;
+  }
+
+  .enroll > div:first-child {
+    max-width: 38rem;
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  }
+
+  p {
+    margin: 0;
+  }
+</style>

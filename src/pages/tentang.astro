@@ -1,0 +1,44 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Pending from '../components/ui/Pending.astro';
+import { site, unitList } from '../config/site';
+---
+
+<PageLayout
+  title="Tentang Sekolah"
+  description="Mengenal Sekolah Tarbiyah Sunnah Selacau: TK, Kuttab dan Madrasah Tarbiyah Sunnah di Selacau, Batujajar, Kabupaten Bandung Barat."
+  lead={`${site.name} adalah website bersama untuk tiga unit pendidikan Tarbiyah Sunnah di Selacau.`}
+>
+  <div class="prose">
+    <p>
+      Pendidikan di lingkungan ini berlandaskan Al-Qur’an dan As-Sunnah sesuai pemahaman Salafush Shalih, dengan
+      perhatian pada aqidah, Al-Qur’an, adab, ilmu dan kemandirian.
+    </p>
+
+    <h2>Tiga unit</h2>
+    <ul class="link-list">
+      {
+        unitList.map((u) => (
+          <li>
+            <a href={u.url}>{u.officialName}</a>: {u.descriptor.toLowerCase()}
+          </li>
+        ))
+      }
+    </ul>
+    <p>
+      Setiap unit memiliki program, jadwal dan informasi pendaftaran sendiri. Nama “{site.name}” adalah nama website,
+      bukan nama lembaga baru.
+    </p>
+
+    <h2>Kaitan dengan Yayasan Tarbiyah Sunnah</h2>
+    <p>
+      Website ini memakai logo Yayasan Tarbiyah Sunnah. Isinya terbatas pada TK, Kuttab dan Madrasah Tarbiyah Sunnah di
+      Selacau, dan tidak mewakili seluruh unit pendidikan Yayasan Tarbiyah Sunnah.
+    </p>
+
+    <Pending>
+      Narasi bersama halaman ini (sejarah, profil penyelenggara, legal entity) menunggu persetujuan pengelola ketiga
+      unit.
+    </Pending>
+  </div>
+</PageLayout>

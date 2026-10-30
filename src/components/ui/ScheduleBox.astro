@@ -1,0 +1,60 @@
+---
+interface Props {
+  days: string;
+  hours: string;
+}
+
+const { days, hours } = Astro.props;
+---
+
+<section class="schedule" aria-labelledby="jadwal-title">
+  <h3 id="jadwal-title">Waktu belajar</h3>
+  <dl>
+    <div>
+      <dt>Hari</dt>
+      <dd>{days}</dd>
+    </div>
+    <div>
+      <dt>Pukul</dt>
+      <dd>{hours}</dd>
+    </div>
+  </dl>
+</section>
+
+<style>
+  .schedule {
+    align-self: start;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 0.75rem;
+  }
+
+  dl {
+    margin: 0;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  dt {
+    color: var(--muted);
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 700;
+    color: var(--brand-deep);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

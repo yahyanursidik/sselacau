@@ -1,0 +1,185 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import UnitHero from '../../components/ui/UnitHero.astro';
+import Pending from '../../components/ui/Pending.astro';
+import EnrollmentNote from '../../components/ui/EnrollmentNote.astro';
+import { units } from '../../config/site';
+
+const unit = units.kuttab;
+const kosp = 'KOSP Kuttab Tarbiyah Sunnah 2026/2027';
+
+const diniyah = ['Aqidah', 'Fiqh', 'Adab', 'Hadits', 'Sirah', 'Bahasa Arab'];
+const umum = ['Bahasa Indonesia', 'Matematika', 'IPAS', 'PJOK', 'Prakarya'];
+const ranah = ['Spiritual', 'Sosial', 'Emosional', 'Intelektual', 'Fisik'];
+---
+
+<BaseLayout
+  title="Kuttab Tarbiyah Sunnah (setingkat SD)"
+  description="Kuttab Tarbiyah Sunnah di Selacau, Batujajar: program setingkat SD dengan Tahfizh Al-Qur’an, pelajaran diniyah dan pelajaran umum berdasarkan KOSP 2026/2027."
+>
+  <UnitHero
+    unit={unit}
+    lead="Program setingkat SD yang memadukan Tahfizh Al-Qur’an, pelajaran diniyah, pelajaran umum, serta pembiasaan adab dan kemandirian."
+  >
+    <Fragment slot="actions">
+      <a class="btn btn--primary" href="#kurikulum">Kurikulum Kuttab</a>
+      <a class="btn btn--secondary" href="/pendaftaran/">Informasi Pendaftaran</a>
+    </Fragment>
+  </UnitHero>
+
+  <section class="section" aria-labelledby="arah-title">
+    <div class="container two-col">
+      <div>
+        <h2 id="arah-title">Arah pendidikan</h2>
+        <p class="source">Sumber: {kosp}</p>
+      </div>
+      <div class="prose">
+        <p>
+          Pembelajaran di Kuttab berlandaskan Al-Qur’an dan As-Sunnah sesuai pemahaman Salafush Shalih. Kuttab
+          bercita-cita membentuk generasi Qur’ani yang memiliki aqidah yang lurus, akhlak mulia, kecerdasan, kemandirian
+          dan wawasan keislaman.
+        </p>
+        <p>Misi Kuttab menurut KOSP meliputi:</p>
+        <ul>
+          <li>pembelajaran Al-Qur’an secara intensif;</li>
+          <li>penguatan dasar-dasar keislaman dan pembiasaan adab;</li>
+          <li>pembelajaran yang inovatif serta pembekalan keterampilan hidup;</li>
+          <li>pengembangan wawasan keislaman;</li>
+          <li>tata kelola lembaga yang amanah dan akuntabel.</li>
+        </ul>
+        <Pending>
+          Paragraf di atas adalah ringkasan. Ganti dengan rumusan visi dan misi persis dari dokumen KOSP setelah disetujui
+          pengelola Kuttab.
+        </Pending>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" id="kurikulum" aria-labelledby="kurikulum-title">
+    <div class="container">
+      <h2 id="kurikulum-title">Kurikulum</h2>
+      <p class="lead">Struktur pembelajaran tahun ajaran 2026/2027 terdiri atas tiga kelompok.</p>
+
+      <div class="curriculum">
+        <section aria-labelledby="k-quran">
+          <h3 id="k-quran">Tahfizh Al-Qur’an</h3>
+          <p class="figure"><strong>14 JP</strong></p>
+          <p class="muted">
+            Alokasi untuk setiap kelompok kelas menurut tabel {kosp}. Alokasi tahun ajaran lain dapat berbeda.
+          </p>
+        </section>
+        <section aria-labelledby="k-diniyah">
+          <h3 id="k-diniyah">Pelajaran diniyah</h3>
+          <ul>{diniyah.map((s) => <li>{s}</li>)}</ul>
+        </section>
+        <section aria-labelledby="k-umum">
+          <h3 id="k-umum">Pelajaran umum</h3>
+          <ul>{umum.map((s) => <li>{s}</li>)}</ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="adab-title">
+    <div class="container two-col">
+      <div>
+        <h2 id="adab-title">Adab, matrikulasi dan pengembangan diri</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Setiap awal tahun ajaran, Kuttab mengadakan masa matrikulasi selama satu hingga dua pekan. Masa ini dipakai
+          untuk menguatkan adab, membantu murid beradaptasi dengan lingkungan belajar, dan melakukan asesmen awal.
+        </p>
+        <p>
+          Dalam kerangka spiritual, pengembangan murid diarahkan pada ranah {ranah.slice(0, -1).join(', ').toLowerCase()} dan{' '}
+          {ranah.at(-1)?.toLowerCase()}.
+        </p>
+        <p>KOSP juga menyebut <em lang="en">Teach With Heart</em> sebagai pendekatan sekolah.</p>
+        <Pending>Uraian pendekatan <em lang="en">Teach With Heart</em> sesuai rumusan KOSP.</Pending>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="hari-title">
+    <div class="container two-col">
+      <div>
+        <h2 id="hari-title">Alur hari belajar</h2>
+      </div>
+      <div class="prose">
+        <p>Gambaran umum hari belajar menurut KOSP:</p>
+        <ol class="day">
+          <li>Kegiatan pembuka bersama wali kelas</li>
+          <li>Tahfizh Al-Qur’an pagi</li>
+          <li>Kegiatan belajar mengajar</li>
+          <li>Istirahat siang dan shalat</li>
+          <li>Tahfizh Al-Qur’an siang</li>
+        </ol>
+        <Pending>Jam pelajaran resmi tahun berjalan belum dicantumkan; konfirmasi jadwal dengan Kuttab sebelum publikasi.</Pending>
+      </div>
+    </div>
+  </section>
+
+  <EnrollmentNote unit={unit} />
+</BaseLayout>
+
+<style>
+  .two-col {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    align-items: start;
+  }
+
+  .source {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .curriculum {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 2.5rem;
+    margin: 2.5rem 0 2rem;
+  }
+
+  .curriculum > section {
+    border-top: 3px solid var(--brand);
+    padding-top: 1.25rem;
+  }
+
+  .curriculum ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
+  .figure {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .figure strong {
+    font-size: 2.25rem;
+    color: var(--brand-deep);
+    letter-spacing: -0.03em;
+  }
+
+  .day {
+    padding-left: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .day li + li {
+    margin-top: 0.35rem;
+  }
+
+  @media (max-width: 820px) {
+    .two-col,
+    .curriculum {
+      grid-template-columns: 1fr;
+    }
+
+    .curriculum {
+      gap: 2rem;
+    }
+  }
+</style>

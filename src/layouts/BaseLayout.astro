@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/layout/SiteHeader.astro';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import { site } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | TK, Kuttab dan Madrasah di Selacau`;
+// Canonical hanya bila domain final sudah diisi lewat PUBLIC_SITE_URL.
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : null;
+const noindex = site.prerelease || !Astro.site;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#466a38" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <!-- Favicon menunggu turunan simbol resmi yang disetujui (docs/07). -->
+  </head>
+  <body>
+    <a class="skip-link" href="#konten">Langsung ke konten</a>
+    {
+      site.prerelease && (
+        <div class="prerelease" role="note">
+          <div class="container">
+            Pratinjau pengembangan. Bagian bertanda “menunggu verifikasi” belum boleh dipublikasikan.
+          </div>
+        </div>
+      )
+    }
+    <SiteHeader />
+    <main id="konten" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
+
+<style>
+  .prerelease {
+    background: #fff4dc;
+    border-bottom: 1px solid #ecd9a8;
+    color: #5a4410;
+    font-size: 0.8125rem;
+    padding-block: 0.45rem;
+  }
+
+  main:focus {
+    outline: none;
+  }
+</style>

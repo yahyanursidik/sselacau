@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import UnitHero from '../../components/ui/UnitHero.astro';
+import Pending from '../../components/ui/Pending.astro';
+import EnrollmentNote from '../../components/ui/EnrollmentNote.astro';
+import VisionMission from '../../components/ui/VisionMission.astro';
+import ScheduleBox from '../../components/ui/ScheduleBox.astro';
+import { units } from '../../config/site';
+
+// Sumber seluruh isi halaman: profil Madrasah Tarbiyah Sunnah dari pengguna, 30 Oktober 2026.
+const unit = units.madrasah;
+
+const profile =
+  'Madrasah Tarbiyah Sunnah merupakan wadah belajar anak usia SD dalam mempelajari ilmu Diniyyah dan Al-Qur’an, serta membaca dan menghafalkan Al-Qur’an dengan baik dan benar, yang berstandar dengan TPQ–TQA.';
+
+const visi =
+  'Terwujudnya generasi Qur’ani yang beraqidah dan berakhlakul karimah sesuai dengan Al-Qur’an dan Sunnah.';
+
+const misi = [
+  'Mencetak generasi yang shalih dan shalihah dengan pemahaman salafush shalih.',
+  'Membimbing akhlak para peserta didik dengan akhlak mulia yang diajarkan sesuai dengan Al-Qur’an dan Sunnah.',
+  'Melaksanakan pembinaan Aqidah, Ibadah dan Akhlak serta beramal sesuai pemahaman Ahlus Sunnah wal Jama’ah.',
+  'Meningkatkan kemampuan peserta didik dalam membaca Al-Qur’an, menghafal, dan mengamalkan.',
+];
+
+const diniyyah = [
+  'Aqidah',
+  'Akhlak',
+  'Fiqih',
+  'Tajwid',
+  'Bahasa Arab',
+  'Hafalan doa sehari-hari',
+  'Dzikir pagi dan petang',
+  'Dzikir ba’da sholat fardhu',
+  'Praktik ibadah (wudhu dan sholat)',
+];
+---
+
+<BaseLayout
+  title="Madrasah Tarbiyah Sunnah (TPQ–TQA)"
+  description="Madrasah Tarbiyah Sunnah di Selacau, Batujajar: belajar ilmu Diniyyah dan Al-Qur’an untuk anak usia SD, Senin–Jumat pukul 14.00–16.45."
+>
+  <UnitHero unit={unit} lead={profile}>
+    <Fragment slot="actions">
+      <a class="btn btn--primary" href="#pembelajaran">Program Pembelajaran</a>
+      <a class="btn btn--secondary" href="/pendaftaran/">Informasi Pendaftaran</a>
+      {unit.contactUrl && <a class="btn btn--secondary" href={unit.contactUrl}>Hubungi Madrasah</a>}
+    </Fragment>
+  </UnitHero>
+
+  <section class="section" id="pembelajaran" aria-labelledby="belajar-title">
+    <div class="container">
+      <h2 id="belajar-title">Pembelajaran</h2>
+      <p class="lead">Pembelajaran dibagi menjadi dua kelas: kelas Diniyyah dan kelas Marhalah (Halaqah Qur’an).</p>
+
+      <div class="classes">
+        <section class="class" aria-labelledby="kelas-diniyyah">
+          <h3 id="kelas-diniyyah">Kelas Diniyyah</h3>
+          <p class="muted">Mata pelajaran yang dipelajari antara lain:</p>
+          <ul class="subjects">{diniyyah.map((d) => <li>{d}</li>)}</ul>
+        </section>
+
+        <section class="class" aria-labelledby="kelas-marhalah">
+          <h3 id="kelas-marhalah">
+            Kelas Marhalah
+            <span class="sub">Halaqah Qur’an</span>
+          </h3>
+          <p class="muted">Kelas Marhalah dikelompokkan berdasarkan kemampuan membaca dan menghafal Al-Qur’an.</p>
+          <div class="target">
+            <p class="target-label">Target lulusan saat ini</p>
+            <p class="target-value">Minimal hafal Juz 30</p>
+            <p>secara mutqin, dengan bacaan yang baik.</p>
+          </div>
+        </section>
+
+        <div class="schedule-slot">
+          <ScheduleBox days="Senin–Jumat" hours="14.00–16.45" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <VisionMission vision={visi} mission={misi} />
+
+  <section class="section" aria-labelledby="madrasah-lain">
+    <div class="container prose">
+      <h2 id="madrasah-lain">Informasi yang sedang dilengkapi</h2>
+      <Pending label="Data Madrasah yang belum tersedia">
+        <ul>
+          <li>
+            Perbedaan program TPQ dan TQA (keduanya program terpisah): usia, jenjang, target, dan hubungannya dengan
+            kelas Diniyyah dan Marhalah
+          </li>
+          <li>Tingkatan marhalah dan cara penempatan peserta didik</li>
+          <li>Fasilitas dan lingkungan belajar</li>
+          <li>Syarat, jadwal dan biaya pendaftaran</li>
+          <li>Kontak resmi Madrasah</li>
+          <li>Foto kegiatan yang sudah berizin</li>
+        </ul>
+      </Pending>
+    </div>
+  </section>
+
+  <EnrollmentNote unit={unit} />
+</BaseLayout>
+
+<style>
+  .classes {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 0.8fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: 2.5rem;
+  }
+
+  .class {
+    border-top: 3px solid var(--brand);
+    padding-top: 1.25rem;
+  }
+
+  .class h3 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .sub {
+    font-size: 1.0625rem;
+    font-weight: 650;
+    letter-spacing: 0;
+    color: var(--accent-text);
+  }
+
+  .subjects {
+    columns: 2;
+    column-gap: 1.5rem;
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
+  .subjects li {
+    break-inside: avoid;
+    margin-bottom: 0.35rem;
+  }
+
+  .target {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--wash);
+    border-radius: 10px;
+  }
+
+  .target p {
+    margin: 0;
+  }
+
+  .target-label {
+    font-size: 0.875rem;
+    font-weight: 650;
+    color: var(--brand);
+  }
+
+  .target-value {
+    font-size: 1.625rem;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    color: var(--brand-deep);
+    margin: 0.15rem 0 0.25rem !important;
+  }
+
+  @media (max-width: 960px) {
+    .classes {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .schedule-slot {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .classes {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .subjects {
+      columns: 1;
+    }
+  }
+</style>

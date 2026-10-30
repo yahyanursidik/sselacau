@@ -1,0 +1,137 @@
+---
+import { Image } from 'astro:assets';
+import { brandAssets } from '../../config/brand';
+import { site, unitList } from '../../config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container grid">
+    <div>
+      <Image src={brandAssets.site.src} alt={brandAssets.site.alt} width={72} densities={[1, 2]} class="footer-logo" />
+      <p class="name">{site.name}</p>
+      <p>Website informasi TK, Kuttab dan Madrasah Tarbiyah Sunnah di Selacau.</p>
+    </div>
+
+    <nav aria-label="Unit pendidikan">
+      <h2>Unit Pendidikan</h2>
+      <ul>
+        {unitList.map((u) => <li><a href={u.url}>{u.officialName}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav aria-label="Informasi">
+      <h2>Informasi</h2>
+      <ul>
+        <li><a href="/tentang/">Tentang Sekolah</a></li>
+        <li><a href="/pendaftaran/">Informasi Pendaftaran</a></li>
+        <li><a href="/kontak/">Kontak &amp; Lokasi</a></li>
+        <li><a href="/kebijakan-privasi/">Kebijakan Privasi</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2>Lokasi</h2>
+      <p>{site.region}, Jawa Barat</p>
+      {
+        site.contact.whatsappUrl ? (
+          <p><a href={site.contact.whatsappUrl}>WhatsApp sekolah</a></p>
+        ) : (
+          <p class="dim">Kontak resmi segera dicantumkan.</p>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="container bottom">
+    <p>© {year} {site.name}. Logo Yayasan Tarbiyah Sunnah dan logo unit digunakan sesuai kebijakan brand.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    padding-top: 3.5rem;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 2.5rem;
+  }
+
+  .footer-logo {
+    width: 72px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .name {
+    font-weight: 700;
+    color: var(--brand-deep);
+    margin-bottom: 0.35rem;
+  }
+
+  h2 {
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+    margin: 0 0 0.75rem;
+    color: var(--text);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  a {
+    color: var(--muted);
+  }
+
+  a:hover {
+    color: var(--brand-deep);
+  }
+
+  a:active {
+    color: var(--text);
+  }
+
+  .dim {
+    font-style: italic;
+  }
+
+  .bottom {
+    border-top: 1px solid var(--line);
+    margin-top: 3rem;
+    padding-block: 1.25rem;
+    font-size: 0.8125rem;
+  }
+
+  .bottom p {
+    margin: 0;
+  }
+
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>
