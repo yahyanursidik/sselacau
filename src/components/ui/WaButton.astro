@@ -1,0 +1,14 @@
+---
+import type { UnitContact } from '../../config/site';
+
+interface Props {
+  contact: UnitContact;
+  variant?: 'primary' | 'secondary';
+}
+
+const { contact, variant = 'primary' } = Astro.props;
+---
+
+<a class:list={['btn', `btn--${variant}`]} href={contact.url} target="_blank" rel="noopener noreferrer">
+  {contact.label} via WhatsApp<span class="visually-hidden"> (membuka WhatsApp di tab baru)</span>
+</a>

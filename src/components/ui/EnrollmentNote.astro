@@ -1,4 +1,5 @@
 ---
+import WaButton from './WaButton.astro';
 import { enrollmentLabel, type Unit } from '../../config/site';
 
 interface Props {
@@ -13,13 +14,23 @@ const { unit } = Astro.props;
     <div>
       <h2 id={`daftar-${unit.key}`}>Pendaftaran {unit.officialName}</h2>
       <p class="muted">
-        Status: <strong>{enrollmentLabel[unit.enrollment]}</strong>. Jadwal, syarat dan biaya diumumkan langsung oleh
-        unit; website ini tidak menerima formulir pendaftaran.
+        Status: <strong>{enrollmentLabel[unit.enrollment]}</strong>.
+        {
+          unit.contact ? (
+            <>
+              Jadwal, syarat dan biaya dapat ditanyakan langsung melalui WhatsApp{' '}
+              <a href={unit.contact.url} target="_blank" rel="noopener noreferrer">{unit.contact.phone}</a>.
+            </>
+          ) : (
+            'Jadwal, syarat dan biaya diumumkan langsung oleh unit.'
+          )
+        }{' '}
+        Website ini tidak menerima formulir pendaftaran.
       </p>
     </div>
     <div class="actions">
-      <a class="btn btn--primary" href="/pendaftaran/">Informasi Pendaftaran</a>
-      {unit.contactUrl ? <a class="btn btn--secondary" href={unit.contactUrl}>Hubungi {unit.shortName}</a> : null}
+      {unit.contact && <WaButton contact={unit.contact} />}
+      <a class:list={['btn', unit.contact ? 'btn--secondary' : 'btn--primary']} href="/pendaftaran/">Informasi Pendaftaran</a>
     </div>
   </div>
 </section>

@@ -3,6 +3,8 @@ import { Image } from 'astro:assets';
 import { brandAssets } from '../../config/brand';
 import { site, unitList } from '../../config/site';
 
+const contacts = unitList.filter((u) => u.contact);
+
 const year = new Date().getFullYear();
 ---
 
@@ -32,15 +34,19 @@ const year = new Date().getFullYear();
     </nav>
 
     <div>
-      <h2>Lokasi</h2>
+      <h2>Lokasi &amp; WhatsApp</h2>
       <p>{site.region}, Jawa Barat</p>
-      {
-        site.contact.whatsappUrl ? (
-          <p><a href={site.contact.whatsappUrl}>WhatsApp sekolah</a></p>
-        ) : (
-          <p class="dim">Kontak resmi segera dicantumkan.</p>
-        )
-      }
+      <ul>
+        {
+          contacts.map((u) => (
+            <li>
+              <a href={u.contact!.url} target="_blank" rel="noopener noreferrer">
+                {u.contact!.label}: {u.contact!.phone}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </div>
 
@@ -105,10 +111,6 @@ const year = new Date().getFullYear();
 
   a:active {
     color: var(--text);
-  }
-
-  .dim {
-    font-style: italic;
   }
 
   .bottom {

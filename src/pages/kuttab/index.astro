@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import UnitHero from '../../components/ui/UnitHero.astro';
 import Pending from '../../components/ui/Pending.astro';
 import EnrollmentNote from '../../components/ui/EnrollmentNote.astro';
+import WaButton from '../../components/ui/WaButton.astro';
 import { units } from '../../config/site';
 
 const unit = units.kuttab;
@@ -24,6 +25,7 @@ const ranah = ['Spiritual', 'Sosial', 'Emosional', 'Intelektual', 'Fisik'];
     <Fragment slot="actions">
       <a class="btn btn--primary" href="#kurikulum">Kurikulum Kuttab</a>
       <a class="btn btn--secondary" href="/pendaftaran/">Informasi Pendaftaran</a>
+      {unit.contact && <WaButton contact={unit.contact} variant="secondary" />}
     </Fragment>
   </UnitHero>
 

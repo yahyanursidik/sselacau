@@ -4,6 +4,7 @@ import Pending from '../components/ui/Pending.astro';
 import { site, unitList, kuttabAddress } from '../config/site';
 
 const { contact } = site;
+const noContact = unitList.filter((u) => !u.contact).map((u) => u.officialName);
 ---
 
 <PageLayout
@@ -36,15 +37,24 @@ const { contact } = site;
         {
           unitList.map((u) => (
             <li>
-              <span>{u.officialName}</span>
-              {u.contactUrl ? <a href={u.contactUrl}>Hubungi</a> : <span class="muted">Belum dicantumkan</span>}
+              <span>
+                {u.officialName}
+                {u.contact && <small>{u.contact.label}</small>}
+              </span>
+              {u.contact ? (
+                <a href={u.contact.url} target="_blank" rel="noopener noreferrer">
+                  WhatsApp {u.contact.phone}
+                </a>
+              ) : (
+                <span class="muted">Belum dicantumkan</span>
+              )}
             </li>
           ))
         }
       </ul>
       {
-        !contact.whatsappUrl && !contact.phone && (
-          <Pending>Nomor telepon/WhatsApp dan akun resmi sekolah. Jangan memakai nomor pribadi tanpa izin.</Pending>
+        noContact.length > 0 && (
+          <Pending>Kontak WhatsApp resmi {noContact.join(' dan ')}. Jangan memakai nomor pribadi tanpa izin.</Pending>
         )
       }
     </section>
@@ -74,10 +84,25 @@ const { contact } = site;
 
   .contacts li {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.25rem 1rem;
     padding-block: 0.75rem;
     border-bottom: 1px solid var(--line);
+  }
+
+  .contacts small {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .contacts a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 650;
   }
 
   @media (max-width: 760px) {

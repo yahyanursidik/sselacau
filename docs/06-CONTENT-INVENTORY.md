@@ -23,7 +23,7 @@
 - Thematic learning: themes (diriku, keluargaku, lingkungan, tanaman, binatang, kebutuhan sehari-hari) via fun cooking, market day, outing class, field trip, simple projects.
 
 ## Pending from TK
-Licensing & NPSN (if any), facilities, teacher info and publication permission, admission conditions/fees, contact, approved photos.
+Licensing & NPSN (if any), facilities, teacher info and publication permission, admission conditions/fees, approved photos.
 
 ## Source-backed Madrasah details
 **From user-supplied text:** Madrasah Tarbiyah Sunnah profile, 30 Oktober 2026. Implemented on `/madrasah/`.
@@ -36,6 +36,12 @@ Licensing & NPSN (if any), facilities, teacher info and publication permission, 
 ## Pending from Madrasah TPQ/TQA
 - Confirmed by user (30 Oktober 2026): TPQ and TQA are **separate programs**.
 - Still pending: how TPQ and TQA differ (age, level, target) and how each relates to the Diniyyah/Marhalah classes, marhalah levels and placement, facilities, admissions/fees, contact, approved photos.
+
+## Official WhatsApp contacts
+From user, 30 Oktober 2026. Configured in `src/config/site.ts` (`units.*.contact`).
+- Info SPMB Kuttab Tarbiyah Sunnah: 0856-4070-9149 (https://wa.me/6285640709149)
+- Info SPMB TK Tarbiyah Sunnah: 0877-1103-1938 (https://wa.me/6287711031938)
+- Madrasah: pending.
 
 ## Pending across all units
 Approved umbrella wordmark/logo (avoid using Madrasah logo as umbrella mark by default), exact campus map pin, address format for every unit, official phone/WhatsApp and accounts, legal entity footer, approved photos and consent, academic year/current registration status, destination URL/domain.

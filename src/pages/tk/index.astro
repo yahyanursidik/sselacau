@@ -5,6 +5,7 @@ import Pending from '../../components/ui/Pending.astro';
 import EnrollmentNote from '../../components/ui/EnrollmentNote.astro';
 import VisionMission from '../../components/ui/VisionMission.astro';
 import ScheduleBox from '../../components/ui/ScheduleBox.astro';
+import WaButton from '../../components/ui/WaButton.astro';
 import { units } from '../../config/site';
 
 // Sumber seluruh isi halaman: "Program Pembelajaran TK Tarbiyah Sunnah" dari pengguna, 30 Oktober 2026.
@@ -74,7 +75,7 @@ const realActivities = ['Fun cooking', 'Market day', 'Outing class', 'Field trip
     <Fragment slot="actions">
       <a class="btn btn--primary" href="#pembelajaran">Program Pembelajaran</a>
       <a class="btn btn--secondary" href="/pendaftaran/">Informasi Pendaftaran</a>
-      {unit.contactUrl && <a class="btn btn--secondary" href={unit.contactUrl}>Hubungi TK</a>}
+      {unit.contact && <WaButton contact={unit.contact} variant="secondary" />}
     </Fragment>
   </UnitHero>
 

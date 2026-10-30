@@ -2,7 +2,10 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import UnitLogo from '../components/ui/UnitLogo.astro';
 import Pending from '../components/ui/Pending.astro';
+import WaButton from '../components/ui/WaButton.astro';
 import { unitList, enrollmentLabel } from '../config/site';
+
+const noContact = unitList.filter((u) => !u.contact).map((u) => u.officialName);
 ---
 
 <PageLayout
@@ -23,16 +26,18 @@ import { unitList, enrollmentLabel } from '../config/site';
             <p>
               Status: <strong>{enrollmentLabel[u.enrollment]}</strong>
             </p>
+            {u.contact && (
+              <p>
+                {u.contact.label}: WhatsApp{' '}
+                <a href={u.contact.url} target="_blank" rel="noopener noreferrer">{u.contact.phone}</a>
+              </p>
+            )}
           </div>
           <div class="actions">
             <a class="btn btn--secondary" href={u.url}>
               Kenali {u.shortName}
             </a>
-            {u.contactUrl && (
-              <a class="btn btn--primary" href={u.contactUrl}>
-                Hubungi {u.shortName}
-              </a>
-            )}
+            {u.contact && <WaButton contact={u.contact} />}
           </div>
         </li>
       ))
@@ -40,8 +45,8 @@ import { unitList, enrollmentLabel } from '../config/site';
   </ul>
 
   <Pending>
-    Tahun ajaran, jadwal, syarat, biaya dan kontak pendaftaran tiap unit. Biaya dan kuota tidak dicantumkan sebelum
-    dikonfirmasi unit.
+    Tahun ajaran, jadwal, syarat dan biaya pendaftaran tiap unit{noContact.length > 0 && `, serta kontak ${noContact.join(' dan ')}`}.
+    Biaya dan kuota tidak dicantumkan sebelum dikonfirmasi unit.
   </Pending>
 </PageLayout>
 

@@ -6,6 +6,15 @@
 export type UnitKey = 'tk' | 'kuttab' | 'madrasah';
 export type EnrollmentStatus = 'belum-diumumkan' | 'dibuka' | 'ditutup';
 
+export interface UnitContact {
+  /** Label tombol, mis. "Info SPMB Kuttab". */
+  label: string;
+  /** Nomor yang ditampilkan sebagai teks. */
+  phone: string;
+  /** Tautan wa.me dengan kode negara 62, tanpa angka 0 di depan. */
+  url: string;
+}
+
 export interface Unit {
   key: UnitKey;
   officialName: string;
@@ -16,8 +25,8 @@ export interface Unit {
   /** Data unit sudah disetujui pemilik unit untuk dipublikasikan. */
   verified: boolean;
   enrollment: EnrollmentStatus;
-  /** Tautan WhatsApp/telepon resmi unit. */
-  contactUrl: string | null;
+  /** Kontak WhatsApp resmi unit. */
+  contact: UnitContact | null;
 }
 
 export const site = {
@@ -52,7 +61,8 @@ export const units: Record<UnitKey, Unit> = {
       'Pendidikan anak usia dini untuk usia 4–6 tahun (TK A dan TK B), dengan pembiasaan adab, nilai Islam dan kemandirian melalui bermain dan kegiatan nyata.',
     verified: true,
     enrollment: 'belum-diumumkan',
-    contactUrl: null,
+    // Sumber: pengguna, 30 Oktober 2026.
+    contact: { label: 'Info SPMB TK', phone: '0877-1103-1938', url: 'https://wa.me/6287711031938' },
   },
   kuttab: {
     key: 'kuttab',
@@ -64,7 +74,8 @@ export const units: Record<UnitKey, Unit> = {
       'Program setingkat SD yang memadukan Al-Qur’an, ilmu diniyah, pelajaran umum, serta pembiasaan adab dan kemandirian.',
     verified: true,
     enrollment: 'belum-diumumkan',
-    contactUrl: null,
+    // Sumber: pengguna, 30 Oktober 2026.
+    contact: { label: 'Info SPMB Kuttab', phone: '0856-4070-9149', url: 'https://wa.me/6285640709149' },
   },
   madrasah: {
     key: 'madrasah',
@@ -77,7 +88,7 @@ export const units: Record<UnitKey, Unit> = {
       'Belajar ilmu Diniyyah dan Al-Qur’an untuk anak usia SD, Senin–Jumat sore, dalam kelas Diniyyah dan kelas Marhalah (Halaqah Qur’an).',
     verified: true,
     enrollment: 'belum-diumumkan',
-    contactUrl: null,
+    contact: null,
   },
 };
 
@@ -94,7 +105,6 @@ export const mainNav = [
   { label: 'Tentang Sekolah', href: '/tentang/' },
   { label: 'Unit Pendidikan', href: null },
   { label: 'Kehidupan Sekolah', href: '/kehidupan-sekolah/' },
-  { label: 'Berita', href: '/berita/' },
   { label: 'Kontak', href: '/kontak/' },
 ] as const;
 
