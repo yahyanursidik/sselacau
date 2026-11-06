@@ -22,8 +22,16 @@
 - Six learning areas: Nilai Agama & Budi Pekerti (incl. Iqro, short surahs, hadith), Bahasa & Komunikasi, Berhitung & Eksplorasi, Seni & Kreativitas, Sosial-Emosional & Kemandirian, Motorik & Kesehatan.
 - Thematic learning: themes (diriku, keluargaku, lingkungan, tanaman, binatang, kebutuhan sehari-hari) via fun cooking, market day, outing class, field trip, simple projects.
 
+### Added 6 November 2026
+**From user-supplied document:** "informasi TK untuk data pada Website.docx".
+- Licensing and NPSN: in process (published as status).
+- Learning environment paragraph and curriculum (government curriculum via Dinas Pendidikan combined with Islamic education, thematic).
+- Six admission requirements (form, KK copy, birth certificate copy, photo, registration fee, observation/introduction).
+- Contact: address Selacau, Kec. Batujajar, KBB; WhatsApp 0877-1103-1938 (Kepala TK, no admin yet); email tktarbiyahsunnah2026@gmail.com; Instagram @tktarbiyahsunnah.
+- 21 activity photos. Published on /tk/ (10, cropped, in src/assets/tk/): only photos without clearly identifiable children's faces. **Held until parental consent is confirmed:** doc images 3, 5, 6 (classroom), 10, 11 (fun cooking), 14 (outing class group photo), 17 (bercocok tanam close-up), plus 16 (planting, faces in profile). Not used: 9 (crop unusable), 13 (low quality), 19 (designed poster; the school's own poster blurs faces).
+
 ## Pending from TK
-Licensing & NPSN (if any), facilities, teacher info and publication permission, admission conditions/fees, approved photos.
+Registration fee amount and schedule, teacher info and publication permission, parental photo consent for the held photos.
 
 ## Source-backed Madrasah details
 **From user-supplied text:** Madrasah Tarbiyah Sunnah profile, 30 Oktober 2026. Implemented on `/madrasah/`.

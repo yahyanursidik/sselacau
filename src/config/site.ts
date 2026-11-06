@@ -13,6 +13,8 @@ export interface UnitContact {
   phone: string;
   /** Tautan wa.me dengan kode negara 62, tanpa angka 0 di depan. */
   url: string;
+  /** Pemegang nomor, mis. "Kepala TK". */
+  role?: string;
 }
 
 export interface Unit {
@@ -27,6 +29,12 @@ export interface Unit {
   enrollment: EnrollmentStatus;
   /** Kontak WhatsApp resmi unit. */
   contact: UnitContact | null;
+  address?: string;
+  email?: string;
+  /** Nama akun tanpa @. */
+  instagram?: string;
+  /** Status perizinan sesuai keterangan unit. */
+  legalStatus?: string;
 }
 
 export const site = {
@@ -61,8 +69,17 @@ export const units: Record<UnitKey, Unit> = {
       'Pendidikan anak usia dini untuk usia 4–6 tahun (TK A dan TK B), dengan pembiasaan adab, nilai Islam dan kemandirian melalui bermain dan kegiatan nyata.',
     verified: true,
     enrollment: 'belum-diumumkan',
-    // Sumber: pengguna, 30 Oktober 2026.
-    contact: { label: 'Info SPMB TK', phone: '0877-1103-1938', url: 'https://wa.me/6287711031938' },
+    // Sumber: pengguna, 30 Oktober 2026, dan dokumen "informasi TK untuk data pada Website", 6 November 2026.
+    contact: {
+      label: 'Info SPMB TK',
+      phone: '0877-1103-1938',
+      url: 'https://wa.me/6287711031938',
+      role: 'Kepala TK',
+    },
+    address: 'Selacau, Kecamatan Batujajar, Kabupaten Bandung Barat',
+    email: 'tktarbiyahsunnah2026@gmail.com',
+    instagram: 'tktarbiyahsunnah',
+    legalStatus: 'Perizinan dan NPSN sedang dalam proses.',
   },
   kuttab: {
     key: 'kuttab',

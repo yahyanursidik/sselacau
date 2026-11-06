@@ -1,7 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import Pending from '../components/ui/Pending.astro';
-import { site, unitList, kuttabAddress } from '../config/site';
+import { site, units, unitList, kuttabAddress } from '../config/site';
 
 const { contact } = site;
 const noContact = unitList.filter((u) => !u.contact).map((u) => u.officialName);
@@ -21,12 +21,21 @@ const noContact = unitList.filter((u) => !u.contact).map((u) => u.officialName);
       </p>
       <p class="muted small">Sumber: sampul KOSP Kuttab 2026/2027.</p>
       {
+        units.tk.address && (
+          <p>
+            <strong>TK Tarbiyah Sunnah</strong>
+            <br />
+            {units.tk.address}
+          </p>
+        )
+      }
+      {
         contact.mapsUrl ? (
           <a class="btn btn--secondary" href={contact.mapsUrl}>
             Buka di Google Maps
           </a>
         ) : (
-          <Pending>Alamat TK dan Madrasah, serta titik peta yang tepat.</Pending>
+          <Pending>Alamat Madrasah dan titik peta yang tepat.</Pending>
         )
       }
     </section>
@@ -39,12 +48,25 @@ const noContact = unitList.filter((u) => !u.contact).map((u) => u.officialName);
             <li>
               <span>
                 {u.officialName}
-                {u.contact && <small>{u.contact.label}</small>}
+                {u.contact && (
+                  <small>
+                    {u.contact.label}
+                    {u.contact.role && ` (${u.contact.role})`}
+                  </small>
+                )}
               </span>
               {u.contact ? (
-                <a href={u.contact.url} target="_blank" rel="noopener noreferrer">
-                  WhatsApp {u.contact.phone}
-                </a>
+                <span class="channels">
+                  <a href={u.contact.url} target="_blank" rel="noopener noreferrer">
+                    WhatsApp {u.contact.phone}
+                  </a>
+                  {u.email && <a href={`mailto:${u.email}`}>{u.email}</a>}
+                  {u.instagram && (
+                    <a href={`https://www.instagram.com/${u.instagram}/`} target="_blank" rel="noopener noreferrer">
+                      Instagram @{u.instagram}
+                    </a>
+                  )}
+                </span>
               ) : (
                 <span class="muted">Belum dicantumkan</span>
               )}
@@ -90,6 +112,12 @@ const noContact = unitList.filter((u) => !u.contact).map((u) => u.officialName);
     gap: 0.25rem 1rem;
     padding-block: 0.75rem;
     border-bottom: 1px solid var(--line);
+  }
+
+  .channels {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .contacts small {

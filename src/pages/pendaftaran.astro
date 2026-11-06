@@ -34,8 +34,8 @@ const noContact = unitList.filter((u) => !u.contact).map((u) => u.officialName);
             )}
           </div>
           <div class="actions">
-            <a class="btn btn--secondary" href={u.url}>
-              Kenali {u.shortName}
+            <a class="btn btn--secondary" href={u.key === 'tk' ? '/tk/#pendaftaran-tk' : u.url}>
+              {u.key === 'tk' ? 'Syarat Pendaftaran TK' : `Kenali ${u.shortName}`}
             </a>
             {u.contact && <WaButton contact={u.contact} />}
           </div>
